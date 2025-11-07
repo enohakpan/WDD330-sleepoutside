@@ -1,0 +1,68 @@
+/* Countdown Timer Styles */
+.countdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+#countdown {
+    font-size: 6rem;
+    color: #333;
+    margin: 20px 0;
+    min-width: 200px;
+    text-align: center;
+}
+
+.input-container {
+    margin-bottom: 20px;
+}
+
+#timeInput {
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 120px;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#startButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#startButton:hover {
+    background-color: #45a049;
+}
+
+#pauseButton {
+    background-color: #f44336;
+    color: white;
+}
+
+#pauseButton:hover {
+    background-color: #da190b;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
