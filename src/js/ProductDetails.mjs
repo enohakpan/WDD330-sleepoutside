@@ -9,20 +9,42 @@ export default class ProductDetails {
   }
 
   async init() {
-    // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-    this.product = await this.dataSource.findProductById(this.productId);
-    // the product details are needed before rendering the HTML
-    this.renderProductDetails();
-    // once the HTML is rendered, add a listener to the Add to Cart button
-    // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on "this" to understand why.
-    document
-      .getElementById("addToCart")
-      .addEventListener("click", this.addProductToCart.bind(this));
+    try {
+        // use the datasource to get the details for the current product
+        this.product = await this.dataSource.findProductById(this.productId);
+        
+        // Check if we have valid product data
+        if (this.product && this.product.Brand) {
+            this.renderProductDetails();
+            document
+                .getElementById("addToCart")
+                .addEventListener("click", this.addProductToCart.bind(this));
+        } else {
+            throw new Error('Invalid product data - missing required properties');
+        }
+    } catch (error) {
+        console.error('Error initializing product details:', error);
+        const container = document.querySelector(".product-detail");
+        if (container) {
+            container.innerHTML = `<p>Error loading product details</p>`;
+        }
+    }
   }
 
   addProductToCart() {
-    const cartItems = getLocalStorage("so-cart") || [];
-    cartItems.push(this.product);
+    let cartItems = getLocalStorage("so-cart") || [];
+    // Check if item already exists in cart
+    const existingItem = cartItems.find(item => item.Id === this.product.Id);
+    
+    if (existingItem) {
+        // If item exists, increment its quantity
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+    } else {
+        // If item is new, add it with quantity 1
+        this.product.quantity = 1;
+        cartItems.push(this.product);
+    }
+    
     setLocalStorage("so-cart", cartItems);
   }
 
@@ -32,6 +54,11 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
+  if (!product || !product.Brand) {
+      console.error('Invalid product data');
+      return;
+  }
+
   document.querySelector("h2").textContent = product.Brand.Name;
   document.querySelector("h3").textContent = product.NameWithoutBrand;
 
