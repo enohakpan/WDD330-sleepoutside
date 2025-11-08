@@ -5,10 +5,7 @@ import ProductDetails from "./ProductDetails.mjs";
 const dataSource = new ProductData("tents");
 const productId = getParam("product");
 
-
-const productID = getParam("product");
-
-const product = new ProductDetails(productID, dataSource);
+const product = new ProductDetails(productId, dataSource);
 product.init();
 
 // add to cart button event handler
