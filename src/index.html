@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <script type="module" src="./js/sort.js"></script>
   </head>
 
   <body>
@@ -62,6 +63,18 @@
 
       <section class="products">
         <h2>Top Products</h2>
+
+        <div class="product-controls">
+          <label for="sort">Sort by</label>
+          <select id="sort" aria-label="Sort products">
+            <option value="default">Default</option>
+            <option value="name-asc">Name ↑</option>
+            <option value="name-desc">Name ↓</option>
+            <option value="price-asc">Price ↑</option>
+            <option value="price-desc">Price ↓</option>
+          </select>
+        </div>
+
         <ul class="product-list">
           <li class="product-card">
             <a href="product_pages/?product=880RR">
