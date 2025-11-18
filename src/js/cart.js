@@ -3,9 +3,10 @@ import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
 loadHeaderFooter();
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
+  const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  updateCartFooter(cartItems);
 }
 
 function cartItemTemplate(item) {
@@ -29,6 +30,25 @@ function cartItemTemplate(item) {
 </li>`;
 
   return newItem;
+}
+
+function updateCartFooter(cartItems) {
+  const footer = document.querySelector(".cart-footer");
+  const totalEl = document.querySelector(".cart-total");
+  if (!footer || !totalEl) return;
+
+  if (cartItems && cartItems.length > 0) {
+    const total = cartItems.reduce((sum, item) => {
+      const price = parseFloat(item.FinalPrice);
+      return sum + (isNaN(price) ? 0 : price);
+    }, 0);
+    const formatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total);
+    totalEl.textContent = `Total: ${formatted}`;
+    footer.classList.remove("hide");
+  } else {
+    footer.classList.add("hide");
+    totalEl.textContent = "Total: ";
+  }
 }
 
 renderCartContents();

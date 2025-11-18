@@ -114,6 +114,22 @@ button {
   border-bottom: 2px solid var(--primary-color);
 }
 
+/* hide utility used to toggle elements */
+.hide {
+  display: none;
+}
+
+/* cart footer (holds total and future checkout button) */
+.cart-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+  font-weight: 700;
+}
+
+
 /* End utility classes */
 
 /* Cart icon styles */
