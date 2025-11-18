@@ -3,6 +3,7 @@ export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
 // or a more concise version if you are into that sort of thing:
+// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
@@ -45,9 +46,9 @@ export function renderWithTemplate(template, parentElement, data, callback) {
   }
 }
 
-export async function loadTemplate(path) {
-  const response = await fetch(path);
-  const template = await response.text();
+async function loadTemplate(path) {
+  const res = await fetch(path);
+  const template = await res.text();
   return template;
 }
 
@@ -55,8 +56,8 @@ export async function loadHeaderFooter() {
   const headerTemplate = await loadTemplate("../partials/header.html");
   const footerTemplate = await loadTemplate("../partials/footer.html");
 
-  const headerElement = document.getElementById("main-header");
-  const footerElement = document.getElementById("main-footer");
+  const headerElement = document.querySelector("#main-header");
+  const footerElement = document.querySelector("#main-footer");
 
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
