@@ -209,6 +209,7 @@ button {
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+  position: relative;
 }
 
 .product-card h2,
@@ -223,6 +224,19 @@ button {
 
 .card__name {
   font-size: 1em;
+}
+
+.product-card__discount {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #d32f2f;
+  color: white;
+  padding: 0.5em 0.75em;
+  font-size: var(--small-font);
+  font-weight: 700;
+  border-radius: 4px;
+  z-index: 10;
 }
 
 /* End product list card */
