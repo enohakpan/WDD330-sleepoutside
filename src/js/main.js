@@ -6,5 +6,5 @@ const dataSource = new ProductData("tents");
 const element = document.querySelector(".product-list");
 
 const productList = new ProductList("Tents", dataSource, element);
-
+initProductSearch(productList);
 productList.init();

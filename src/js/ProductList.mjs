@@ -29,6 +29,27 @@ export default class ProductList {
 
     // apply use new utility function instead of the commented code above
     renderListWithTemplate(productCardTemplate, this.listElement, list);
+  }
+    searchProducts(searchTerm) {
+  const filtered = this.allProducts.filter((item) =>
+    item.Name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  this.renderList(filtered);
+    }
+
+    async init() {
+  const list = await this.dataSource.getData();
+  this.allProducts = list;   // ⭐ Save all products for searching
+  this.renderList(list);
+}
 
   }
+
+  export function initProductSearch(productList) {
+  document
+    .querySelector("#searchInput")
+    .addEventListener("input", (e) => {
+      productList.searchProducts(e.target.value);
+    });
 }
