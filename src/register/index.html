@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Register</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body>
+    <header class="divider" id="main-header"></header>
+
+    <main class="divider checkout">
+      <h2>Join SleepOutside</h2>
+      <section class="checkout-form">
+        <form name="register" id="registerForm">
+          <fieldset>
+            <legend>Register & Enter Giveaway</legend>
+            <div class="checkout__name">
+              <label for="fname">First Name</label>
+              <input type="text" name="fname" id="fname" required />
+              <label for="lname">Last Name</label>
+              <input type="text" name="lname" id="lname" required />
+            </div>
+            <div class="checkout__address">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" required autocomplete="email" />
+            </div>
+          </fieldset>
+          <div class="cta-actions">
+            <button type="submit" class="cta-primary">Register</button>
+            <a href="../index.html" class="cta-secondary">Back to Home</a>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+
+    <script type="module">
+      import { loadHeaderFooter, alertMessage } from '../js/utils.mjs';
+      loadHeaderFooter();
+
+      // simple demo handler — just shows success and marks CTA as seen
+      const form = document.getElementById('registerForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        // mark CTA seen so it doesn't show again (timestamp so it can reappear after TTL)
+        try { localStorage.setItem('so_seen_register_cta_v1', String(Date.now())); } catch (err) { }
+        alertMessage('Thanks — you are registered and entered in the giveaway!\nCheck your email for confirmation.', true, 'success');
+        // optionally redirect after a short delay
+        setTimeout(() => { window.location.href = '../index.html'; }, 1300);
+      });
+    </script>
+  </body>
+</html>
