@@ -1,4 +1,4 @@
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage, alertMessage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
 export default class CheckoutProcess {
@@ -108,13 +108,26 @@ export default class CheckoutProcess {
     try {
       const result = await this.service.checkout(payload);
       console.log('Checkout response:', result);
-      // show success to user
-      alert('Order submitted successfully.\nOrder ID: ' + (result && result.id ? result.id : 'n/a'));
-      // (optional) clear local storage cart
-      // localStorage.removeItem(this.key);
+      // show success to user (non-blocking), clear the cart, and go to success page
+      // clear local storage cart
+      localStorage.removeItem(this.key);
+      // redirect to success page
+      window.location.href = './success.html';
     } catch (err) {
       console.error('Checkout failed', err);
-      alert('Checkout failed. See console for details.');
+      // The service throws {name:'servicesError', message: jsonResponse}
+      let message = err && err.message ? err.message : 'Unknown error';
+      // if message is an object, stringify it into a readable summary
+      if (typeof message === 'object') {
+        try {
+          // show stringified JSON with pretty formatting
+          message = JSON.stringify(message, null, 2);
+        } catch (e) {
+          message = String(message);
+        }
+      }
+
+      alertMessage(`Order submission failed:\n${message}`, true, 'error');
     }
   }
 }
