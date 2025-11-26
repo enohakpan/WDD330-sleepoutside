@@ -62,3 +62,30 @@ export async function loadHeaderFooter() {
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
 }
+
+// small UI alert that appears at the top of the main element
+export function alertMessage(message, scroll = true, kind = 'error') {
+  const main = document.querySelector('main') || document.body;
+
+  // build alert element
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  alert.classList.add(kind === 'success' ? 'alert--success' : 'alert--error');
+
+  // allow strings or objects
+  const content = (typeof message === 'string') ? message : JSON.stringify(message, null, 2);
+
+  alert.innerHTML = `<div class="alert__content"><pre>${content}</pre></div><button class="alert__close" aria-label="Close alert">×</button>`;
+
+  // remove handler for close button
+  alert.addEventListener('click', function (e) {
+    const target = e.target;
+    if (target.classList.contains('alert__close')) {
+      main.removeChild(alert);
+    }
+  });
+
+  // insert at top of main and optionally scroll
+  main.prepend(alert);
+  if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+}
