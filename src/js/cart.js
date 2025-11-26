@@ -35,6 +35,7 @@ function cartItemTemplate(item) {
 function updateCartFooter(cartItems) {
   const footer = document.querySelector(".cart-footer");
   const totalEl = document.querySelector(".cart-total");
+  const checkoutLink = document.querySelector('.checkout-link');
   if (!footer || !totalEl) return;
 
   if (cartItems && cartItems.length > 0) {
@@ -45,9 +46,11 @@ function updateCartFooter(cartItems) {
     const formatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total);
     totalEl.textContent = `Total: ${formatted}`;
     footer.classList.remove("hide");
+    if (checkoutLink) checkoutLink.hidden = false;
   } else {
     footer.classList.add("hide");
     totalEl.textContent = "Total: ";
+    if (checkoutLink) checkoutLink.hidden = true;
   }
 }
 
