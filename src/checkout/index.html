@@ -31,18 +31,52 @@
               <label for="state">State</label>
               <input type="text" name="state" id="state" required />
               <label for="zip">Zip</label>
-              <input type="text" name="zip" id="zip" required pattern="[0-9]{5}(-[0-9]{4})?" inputmode="numeric" />
+              <input
+                type="text"
+                name="zip"
+                id="zip"
+                required
+                pattern="[0-9]{5}(-[0-9]{4})?"
+                inputmode="numeric"
+              />
             </div>
           </fieldset>
           <fieldset>
             <legend>Payment</legend>
             <div class="checkout__payment">
               <label for="cardNumber">Card Number</label>
-              <input type="text" name="cardNumber" id="cardNumber" required pattern="\d{13,19}" maxlength="19" inputmode="numeric" autocomplete="cc-number" />
+              <input
+                type="text"
+                name="cardNumber"
+                id="cardNumber"
+                required
+                pattern="\d{13,19}"
+                maxlength="19"
+                inputmode="numeric"
+                autocomplete="cc-number"
+              />
               <label for="expiration">Expiration</label>
-              <input type="text" name="expiration" id="expiration" required pattern="(0[1-9]|1[0-2])\/(?:\d{2}|\d{4})" placeholder="MM/YY" maxlength="7" autocomplete="cc-exp" />
+              <input
+                type="text"
+                name="expiration"
+                id="expiration"
+                required
+                pattern="(0[1-9]|1[0-2])\/(?:\d{2}|\d{4})"
+                placeholder="MM/YY"
+                maxlength="7"
+                autocomplete="cc-exp"
+              />
               <label for="code">CVV</label>
-              <input type="text" name="code" id="code" required pattern="\d{3,4}" maxlength="4" inputmode="numeric" autocomplete="cc-csc" />
+              <input
+                type="text"
+                name="code"
+                id="code"
+                required
+                pattern="\d{3,4}"
+                maxlength="4"
+                inputmode="numeric"
+                autocomplete="cc-csc"
+              />
             </div>
           </fieldset>
           <fieldset class="checkout-summary">
@@ -65,9 +99,9 @@
         </form>
       </section>
       <script type="module">
-        import CheckoutProcess from '../js/CheckoutProcess.mjs';
+        import CheckoutProcess from "../js/CheckoutProcess.mjs";
 
-        const checkout = new CheckoutProcess('so-cart', '.checkout-summary');
+        const checkout = new CheckoutProcess("so-cart", ".checkout-summary");
         checkout.init();
       </script>
     </main>

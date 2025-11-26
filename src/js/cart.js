@@ -10,9 +10,10 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
-  const imageSrc = (item.Images && item.Images.PrimaryMedium)
-    ? item.Images.PrimaryMedium
-    : (item.Image || "images/noun_Tent_2517.svg");
+  const imageSrc =
+    item.Images && item.Images.PrimaryMedium
+      ? item.Images.PrimaryMedium
+      : item.Image || "images/noun_Tent_2517.svg";
 
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
@@ -24,7 +25,7 @@ function cartItemTemplate(item) {
   <a href="#">
     <h2 class="card__name">${item.Name}</h2>
   </a>
-  <p class="cart-card__color">${item.Colors && item.Colors[0] ? item.Colors[0].ColorName : ''}</p>
+  <p class="cart-card__color">${item.Colors && item.Colors[0] ? item.Colors[0].ColorName : ""}</p>
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
@@ -35,7 +36,7 @@ function cartItemTemplate(item) {
 function updateCartFooter(cartItems) {
   const footer = document.querySelector(".cart-footer");
   const totalEl = document.querySelector(".cart-total");
-  const checkoutLink = document.querySelector('.checkout-link');
+  const checkoutLink = document.querySelector(".checkout-link");
   if (!footer || !totalEl) return;
 
   if (cartItems && cartItems.length > 0) {
@@ -43,7 +44,10 @@ function updateCartFooter(cartItems) {
       const price = parseFloat(item.FinalPrice);
       return sum + (isNaN(price) ? 0 : price);
     }, 0);
-    const formatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total);
+    const formatted = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(total);
     totalEl.textContent = `Total: ${formatted}`;
     footer.classList.remove("hide");
     if (checkoutLink) checkoutLink.hidden = false;
