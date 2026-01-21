@@ -65,3 +65,34 @@ document.addEventListener('DOMContentLoaded', () => {
   // listen for changes
   select.addEventListener('change', (e) => applySort(e.target.value));
 });
+
+
+// ...existing sort code...
+
+// Wire up Add to Cart buttons
+document.addEventListener('DOMContentLoaded', () => {
+  // ...existing sort initialization code...
+
+  // Add to Cart listeners
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const { id, name, price } = e.target.dataset;
+      addToCart({ id, name, price: parseFloat(price) });
+    });
+  });
+});
+
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem('so-cart')) || [];
+  const existing = cart.find(item => item.id === product.id);
+  
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+  
+  localStorage.setItem('so-cart', JSON.stringify(cart));
+  alert(`${product.name} added to cart!`);
+}
