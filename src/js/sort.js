@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('sort');
   if (!list || !select) return;
 
-  // Build items array capturing original index for stable sorts
+  // Build items array capturing original index for stable sorts.
   function buildItems() {
     return Array.from(list.children).map((el, i) => {
       // try common selectors for name
